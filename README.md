@@ -31,13 +31,13 @@ pip install -r requirements.txt
 
 ## Usage
 
-1. To create a SQLite database, populate DataLoader folder with excel or csv file, and run:
+###1. To create a SQLite database, populate DataLoader folder with excel or csv file, and run:
 ```bash
 python az_knowthydata.py
 ```
 *explore console menu options to manage tables and add/edit data dictionary entries
 
-2. To access the AI data analyst, first setup an environmental variable containing your OpenAI API key:
+###2. To access the AI data analyst, first setup an environmental variable containing your OpenAI API key:
 
 https://help.openai.com/en/articles/5112595-best-practices-for-api-key-safety
 
@@ -46,7 +46,7 @@ Next, run and follow console instructions:
 python ay_askAI.py
 ```
 
-3. To load a previous AI output, reference 'query_logs.json' and run:
+###3. To load a previous AI output, reference 'query_logs.json' and run:
 ```bash
 python ut_update_tester.py
 ```
@@ -55,7 +55,7 @@ the LLM code output from the associated queryID will output to the appropriate '
 
 ## HelperFiles
 
-- ut_appender.py
+- [ut_appender.py](#ut_update_tester.py)
     appends multiple scrips to create 'ScriptsForLLM.txt'; used for troubleshooting with an LLM if you are a novice coder like me
-- ref_OpenAI_StructuredOutput_example.py
+- [ref_OpenAI_StructuredOutput_example.py](#ref_OpenAI_StructuredOutput_example.py)
     gives a sample script of how to call OpenAI's new structured output API route
