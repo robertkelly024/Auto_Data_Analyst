@@ -30,6 +30,6 @@ def concatenate_files(output_file, extensions, include_files):
 # Usage example
 output_file_path = 'ScriptsForLLM.txt'
 file_extensions = ('.js', '.css', '.html', '.py')  # Extensions you are interested in
-#inclusions = ('az_knowthydata.py', 'fncts_DDentries.py', 'fncts_loadData.py', 'fncts_OAI_GenerateDefs.py', 'fncts_updateDefs.py', 'ay_askAI.py')  #Files to include
+#inclusions = ('az_knowthydata.py', 'fncts_loadData.py', 'fncts_OAI_GenerateDefs.py', 'ay_askAI.py')  #Files to include
 inclusions = ('ut_Python_tester.py', 'ut_SQLite_tester.py', 'ut_update_tester.py')
 concatenate_files(output_file_path, file_extensions, inclusions)
