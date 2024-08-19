@@ -55,7 +55,7 @@ the LLM code output from the associated queryID will output to the appropriate '
 
 ## HelperFiles
 
-- [ut_appender.py](#ut_update_tester.py)
+- [ut_appender.py](#https://github.com/robertkelly024/Auto_Data_Analyst/blob/main/ut_appender.py)
     appends multiple scrips to create 'ScriptsForLLM.txt'; used for troubleshooting with an LLM if you are a novice coder like me
-- [ref_OpenAI_StructuredOutput_example.py](#ref_OpenAI_StructuredOutput_example.py)
+- [ref_OpenAI_StructuredOutput_example.py](#https://github.com/robertkelly024/Auto_Data_Analyst/blob/main/ref_OpenAI_StructuredOutput_example.py)
     gives a sample script of how to call OpenAI's new structured output API route
