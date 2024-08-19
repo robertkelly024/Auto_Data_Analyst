@@ -5,6 +5,5 @@ ReferenceCode/
 results/
 zzNotes.txt
 ScriptsForLLM.txt
-/DataLoader
-/Loaded
 SQLite.db
+/rkdatasets
