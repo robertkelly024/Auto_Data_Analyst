@@ -1,0 +1,90 @@
+{
+    "100004": {
+        "queryID": "100004",
+        "timestamp": "2024-08-18T15:01:55.006325",
+        "user_msg": "can you write a quick python program that runs a regression explaining the effect of the RB position on ADP?",
+        "Context": "To perform a regression analysis on the effect of the RB position on ADP using the data available in the 'adp_merged_7_17' table, we will use Python with pandas and statsmodels libraries. We will create a binary variable for the RB position to be used in the regression model.",
+        "Code_Type": "Python",
+        "code": "import pandas as pd\nimport statsmodels.api as sm\nimport sqlite3\n\n# Connect to SQLite database\nconn = sqlite3.connect('your_database.db')\n\n# Query the data from the adp_merged_7_17 table\nquery = \"\"\"\nSELECT adp, position\nFROM adp_merged_7_17\nWHERE adp IS NOT NULL\n\"\"\"\ndf = pd.read_sql(query, conn)\n\n# Close the database connection\nconn.close()\n\n# Create a binary variable for RB position\n# 1 if position is 'RB', otherwise 0\n\ndf['RB'] = (df['position'] == 'RB').astype(int)\n\n# Define the dependent and independent variables\ndependent_var = df['adp']\nindependent_vars = df[['RB']]\n\n# Add a constant to the independent variables\nindependent_vars = sm.add_constant(independent_vars)\n\n# Fit the regression model\nmodel = sm.OLS(dependent_var, independent_vars).fit()\n\n# Display the regression results\nprint(model.summary())"
+    },
+    "100005": {
+        "queryID": "100005",
+        "timestamp": "2024-08-18T15:06:53.613148",
+        "user_msg": "can you write me a sqlite script that selects all data where the employee is active and a male and makes over $60k per year?",
+        "Context": "This SQLite script is designed to select all active male employees who earn over $60,000 annually from the 'HRDataset_v15' table.",
+        "Code_Type": "SQLite",
+        "code": "SELECT * \nFROM HRDataset_v15\nWHERE EmploymentStatus = 'Active'\n  AND Sex = 'M '\n  AND Salary > 60000;"
+    },
+    "100006": {
+        "queryID": "100006",
+        "timestamp": "2024-08-18T15:16:33.080175",
+        "user_msg": "can you write me a sqlite query that selects all active men that make over $100k?",
+        "Context": "You want to retrieve information of currently employed male employees whose salary exceeds $100,000 from the HRDataset_v15 table in the database.",
+        "Code_Type": "SQLite",
+        "code": "SELECT * FROM HRDataset_v15 \nWHERE EmploymentStatus = 'Active' \nAND Sex = 'M ' \nAND Salary > 100000;"
+    },
+    "100007": {
+        "queryID": "100007",
+        "timestamp": "2024-08-18T16:08:05.562808",
+        "user_msg": "what was the average draft position for dallas cowboys running backs?",
+        "Context": "To find the average draft position (ADP) of Dallas Cowboys running backs, we will filter the records in the 'adp_merged_7_17' table where the 'team' is 'DAL' (Dallas Cowboys) and the 'position' is 'RB' (Running Back). Then, we'll calculate the average of the 'adp' column for these filtered records.",
+        "Code_Type": "SQLite",
+        "code": "SELECT AVG(adp) AS average_adp\nFROM adp_merged_7_17\nWHERE team = 'DAL' AND position = 'RB';"
+    },
+    "100008": {
+        "queryID": "100008",
+        "timestamp": "2024-08-18T16:10:42.648801",
+        "user_msg": "can you run a regression that shows how much being on the dallas cowboys explains average draft position?",
+        "Context": "We will run a regression analysis on the 'adp_merged_7_17' table to determine the effect of being on the Dallas Cowboys on the average draft position (ADP). This requires checking if the player's team is 'DAL' and observing how it impacts the ADP, using this information with a simple linear regression model.",
+        "Code_Type": "Python",
+        "code": "import sqlite3\nimport pandas as pd\nimport statsmodels.api as sm\n\n# Connect to SQLite database\nconn = sqlite3.connect('SQLite.db')\n\n# Query to get relevant data\nquery = '''\nSELECT adp, \n       CASE WHEN team = 'DAL' THEN 1 ELSE 0 END AS is_cowboy\nFROM adp_merged_7_17\n'''\n\n# Load data into DataFrame\nadp_data = pd.read_sql_query(query, conn)\nconn.close()\n\n# Define dependent and independent variables\ny = adp_data['adp']\nX = adp_data[['is_cowboy']]\nX = sm.add_constant(X)  # Adds a constant term to the predictor\n\n# Fit regression model\nmodel = sm.OLS(y, X).fit()\n\n# Print the regression results\nprint(model.summary())\n\n# Note: Install 'pandas', 'sqlite3', and 'statsmodels' if not already installed."
+    },
+    "100009": {
+        "queryID": "100009",
+        "timestamp": "2024-08-18T16:14:10.628842",
+        "user_msg": "can you write me a program that helps answer the question of what associates with being a low ADP quarterback?",
+        "Context": "To find associations with being a low ADP quarterback, we need to query the 'adp_merged_7_17' table in the SQL database. In this context, 'low ADP' implies that the player is typically drafted early in fantasy leagues, having a high skill or popularity level. We'll need to filter quarterbacks (position 'QB') and then sort by ADP to identify those with the lowest values.",
+        "Code_Type": "SQLite",
+        "code": "SELECT *\nFROM adp_merged_7_17\nWHERE position = 'QB'\nORDER BY adp ASC;\n\n-- Note: This query retrieves quarterbacks sorted by ADP in ascending order, indicating the quarterbacks with the lowest (best) ADP values."
+    },
+    "100010": {
+        "queryID": "100010",
+        "timestamp": "2024-08-18T16:15:16.974346",
+        "user_msg": "can you write me a program that helps answer the question of what associates with being a low ADP quarterback? I would like a statistical analysis",
+        "Context": "To perform statistical analysis on the factors associated with a low ADP (Average Draft Position) for quarterbacks, we'll query data from the 'adp_merged_7_17' table to get relevant data for quarterbacks. Then, we'll use Python with pandas for data manipulation and statsmodels for statistical analysis, specifically linear regression, to determine the associations. We'll examine how attributes like 'Year', 'position', 'team', etc., correlate with the ADP for quarterbacks.",
+        "Code_Type": "Python",
+        "code": "import sqlite3\nimport pandas as pd\nimport statsmodels.api as sm\n\n# Connect to SQLite database\nconn = sqlite3.connect('SQLite.db')\n\n# Query to get data for quarterbacks only\nquery = '''\nSELECT Year, name, team, adp\nFROM adp_merged_7_17\nWHERE position = 'QB'\n'''\n\n# Load data into a pandas DataFrame\nqb_df = pd.read_sql_query(query, conn)\nconn.close()\n\n# Check the dataframe\nprint(qb_df.head())\n\n# Drop any missing values\nqb_df.dropna(inplace=True)\n\n# Perform a simple linear regression analysis to see what associates with low ADP\n# Here, Year and team are used as factors; for a more detailed analysis, these should be one-hot encoded\nX = qb_df[['Year']]  # Consider additional encoding for the 'team' if you want to include it\nX = sm.add_constant(X)  # Adds a constant term to the predictors\nY = qb_df['adp']\n\n# Fit the regression model\nmodel = sm.OLS(Y, X).fit()\n\n# Print the summary of the regression\nprint(model.summary())\n\n# Note: For more sophisticated models, consider feature engineering and using additional factors\n# such as past performance data if available. Also, consider data normalization or transformations if needed."
+    },
+    "100011": {
+        "queryID": "100011",
+        "timestamp": "2024-08-19T11:02:54.643615",
+        "user_msg": "what team does aman ra st brown do best against?",
+        "Context": "To determine the team against which Amon-Ra St. Brown performs best, we'll calculate his average fantasy points against each opponent team he's faced.",
+        "Code_Type": "SQLite",
+        "code": "SELECT opponent_team, AVG(fantasy_points) AS avg_fantasy_points\nFROM offense_weekly_data\nWHERE name = 'Amon-Ra St. Brown'\nGROUP BY opponent_team\nORDER BY avg_fantasy_points DESC\nLIMIT 1;"
+    },
+    "100012": {
+        "queryID": "100012",
+        "timestamp": "2024-08-19T11:05:57.166553",
+        "user_msg": "can you show a list of teams that give up the most fantasy points to wide receivers, sorted high to low and separated by year?",
+        "Context": "To achieve the goal of listing the teams that give up the most fantasy points to wide receivers, sorted high to low and separated by year, we will query the 'offense_weekly_data' table in the 'SQLite.db' database. We'll filter the data for the wide receiver position, group the data by opponent team and season, and calculate the sum of fantasy points given up by each team. The results will be sorted by year and fantasy points in descending order.",
+        "Code_Type": "SQLite",
+        "code": "SELECT season, opponent_team, SUM(fantasy_points) AS total_points_given_up \nFROM offense_weekly_data \nWHERE position = 'WR' \nGROUP BY season, opponent_team \nORDER BY season, total_points_given_up DESC;"
+    },
+    "100013": {
+        "queryID": "100013",
+        "timestamp": "2024-08-19T11:08:24.652903",
+        "user_msg": "can you show me a list of teams and how many fantasy points they give up per game against each position (QB, WR, RB, TE). Please separate the two seasons as separate rows per each team",
+        "Context": "This query retrieves the average fantasy points scored against each team by players in different positions (QB, WR, RB, TE) for each season defined in the dataset.",
+        "Code_Type": "SQLite",
+        "code": "SELECT team, season, \n       AVG(CASE WHEN position = 'QB' THEN fantasy_points ELSE NULL END) AS avg_fp_qb,\n       AVG(CASE WHEN position = 'WR' THEN fantasy_points ELSE NULL END) AS avg_fp_wr,\n       AVG(CASE WHEN position = 'RB' THEN fantasy_points ELSE NULL END) AS avg_fp_rb,\n       AVG(CASE WHEN position = 'TE' THEN fantasy_points ELSE NULL END) AS avg_fp_te\nFROM offense_weekly_data\nWHERE season IN (2023, 2022) -- Filter by the two specific seasons\nGROUP BY team, season\nORDER BY team, season;"
+    },
+    "100014": {
+        "queryID": "100014",
+        "timestamp": "2024-08-19T11:14:12.521475",
+        "user_msg": "can you run a linear regression which shows the relationship between the number of years a player has played in the NFL and the percentage of games that player plays in the subsequent season (out of 17 total games)?  I'm trying to get a sense of when in a player's career we can predict injury time.",
+        "Context": "To analyze the relationship between the number of years a player has played in the NFL and the percentage of games they participate in the subsequent season, we'll use a linear regression model. The datasets 'offense_weekly_data' table will be useful as it contains the 'years_played' and 'offense_pct' which can be calculated to represent game participation percentage. Note that we'll need to calculate the percentage of games played (offense_pct / total season games).",
+        "Code_Type": "Python",
+        "code": "import sqlite3\nimport pandas as pd\nimport statsmodels.api as sm\n\n# Connect to the SQLite database\nconn = sqlite3.connect('SQLite.db')\n\n# Query to load necessary data\ndata_query = '''\nSELECT years_played, (offense_pct * 17.0) as games_played_percentage\nFROM offense_weekly_data\nWHERE years_played IS NOT NULL AND offense_pct IS NOT NULL;\n'''\n\ndata_df = pd.read_sql_query(data_query, conn)\n\n# Close the database connection\nconn.close()\n\n# Prepare the data for the regression model\nX = data_df['years_played']  # Independent variable\nX = sm.add_constant(X)  # Adds a constant term to the predictor\nY = data_df['games_played_percentage']  # Dependent variable\n\n# Fit the regression model\nmodel = sm.OLS(Y, X).fit()\n\n# Print the summary of the regression\nprint(model.summary())\n\n# Note: Ensure that 'pandas' and 'statsmodels' libraries are installed in your environment."
+    }
+}
