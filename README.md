@@ -1,15 +1,17 @@
-# Auto Data Analyst - Summary
+# Auto Data Analyst
+
+## Summary
 
 Automation of repetitive tasks of a data analyst, including:
--database creation
--data loading
--data dictionary creation and maintenance
+- Database creation
+- Data loading
+- Data dictionary creation and maintenance
 
 Automation of data analysis by generating SQLite and/or Python code using GPT-4o:
--translate natural language request to appropriate code without exposing row-level data
--log GPT-4o inputs and outputs
--auto-execute generated SQLite code and export to excel
--ticketing system to load Python or SQLite code from log for human editing
+- Translate natural language requests to appropriate code without exposing row-level data
+- Log GPT-4o inputs and outputs
+- Auto-execute generated SQLite code and export to Excel
+- Ticketing system to load Python or SQLite code from log for human editing
 
 ## Table of Contents
 
@@ -52,5 +54,7 @@ the LLM code output from the associated queryID will output to the appropriate '
 
 ## HelperFiles
 
-ut_appender.py - appends multiple scrips to create 'ScriptsForLLM.txt'; used for troubleshooting with an LLM if you are a novice coder like me
-ref_OpenAI_StructuredOutput_example.py - gives a sample script of how to call OpenAI's new structured output API route
+- ut_appender.py
+    appends multiple scrips to create 'ScriptsForLLM.txt'; used for troubleshooting with an LLM if you are a novice coder like me
+- ref_OpenAI_StructuredOutput_example.py
+    gives a sample script of how to call OpenAI's new structured output API route
