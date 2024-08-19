@@ -86,7 +86,7 @@ def generate_DD_entry_for_table(table_name, existing_dict=None, db_name='SQLite.
         is_unique = unique_count == total_count
         
         picklist = []
-        if unique_count / total_count < 0.2:
+        if unique_count / total_count < 0.05:
             picklist = df[column].value_counts().index.tolist()
 
         inferred_dtype = pd.api.types.infer_dtype(df[column], skipna=True)
