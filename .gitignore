@@ -7,3 +7,4 @@ zzNotes.txt
 ScriptsForLLM.txt
 SQLite.db
 /rkdatasets
+/__pycache__
