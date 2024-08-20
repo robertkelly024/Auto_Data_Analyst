@@ -6,15 +6,9 @@ conn = sqlite3.connect('SQLite.db')
 cursor = conn.cursor()
 
 sqlite_code = """
-SELECT team, season, 
-       SUM(CASE WHEN position = 'QB' THEN fantasy_points ELSE NULL END) AS avg_fp_qb,
-       SUM(CASE WHEN position = 'WR' THEN fantasy_points ELSE NULL END) AS avg_fp_wr,
-       SUM(CASE WHEN position = 'RB' THEN fantasy_points ELSE NULL END) AS avg_fp_rb,
-       SUM(CASE WHEN position = 'TE' THEN fantasy_points ELSE NULL END) AS avg_fp_te
+SELECT DISTINCT name
 FROM offense_weekly_data
-WHERE season IN (2023, 2022) -- Filter by the two specific seasons
-GROUP BY team, season
-ORDER BY team, season;
+WHERE position = 'RB' AND years_played > 5;
 """
 
 # Execute sqlite code and generate results file

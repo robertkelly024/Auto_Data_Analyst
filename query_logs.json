@@ -1,0 +1,18 @@
+{
+    "100001": {
+        "queryID": "100001",
+        "timestamp": "2024-08-20T13:04:15.496569",
+        "user_msg": "I just need a list of RBs that have played for more than five years",
+        "Context": "We will query the 'offense_weekly_data' table for players whose position is 'RB' (Running Back) and who have played for more than five years. The relevant field for this is 'years_played'.",
+        "Code_Type": "SQLite",
+        "code": "SELECT DISTINCT name\nFROM offense_weekly_data\nWHERE position = 'RB' AND years_played > 5;"
+    },
+    "100002": {
+        "queryID": "100002",
+        "timestamp": "2024-08-20T13:13:08.958430",
+        "user_msg": "I need a linear regression that looks at how number of years played explains fantasy points for running backs",
+        "Context": "The task requires a linear regression analysis to understand the relationship between the number of years played and the fantasy points scored by running backs. I will filter the data to include only running backs (position 'RB') and then use these filtered columns for a linear regression analysis.",
+        "Code_Type": "Python",
+        "code": "import sqlite3\nimport pandas as pd\nimport statsmodels.api as sm\n\n# Connect to the SQLite database\nconn = sqlite3.connect('SQLite.db')\n\n# Query to select relevant data for running backs (RB)\nquery = '''\nSELECT years_played, fantasy_points\nFROM offense_weekly_data\nWHERE position = 'RB'\n'''\n\n# Load data into a pandas DataFrame\nrb_data = pd.read_sql_query(query, conn)\n\n# Close the database connection\nconn.close()\n\n# Drop any rows with missing values\nrb_data = rb_data.dropna()\n\n# Define independent and dependent variables\nX = rb_data['years_played']\ny = rb_data['fantasy_points']\n\n# Add a constant to the independent variable (for the intercept term)\nX = sm.add_constant(X)\n\n# Fit the linear regression model\nmodel = sm.OLS(y, X).fit()\n\n# Print the summary of the regression\nprint(model.summary())\n\n# Note: Ensure pandas and statsmodels are installed in your environment with:\n# pip install pandas statsmodels"
+    }
+}

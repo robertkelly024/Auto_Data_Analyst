@@ -124,6 +124,7 @@ if event.Code_Type == 'SQLite':
         filename = f"results/AnalysisResult_{query_id}.xlsx"
         df.to_excel(filename, index=False)
         print(f"Query results exported to {filename}")
+        print("Run ut_update_tester.py to load query into ut_SQLite_tester.py")
 
     except sqlite3.Error as e:
         print(f"An error occurred: {e}")

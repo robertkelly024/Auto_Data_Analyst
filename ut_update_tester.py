@@ -18,7 +18,7 @@ def save_tester_script(file_name, lines=None):
         file.writelines(lines)
 
 # Main function to update the tester scripts
-def update_tester_script(query_logs_file='query_logs.json', sqlite_tester_file='ut_SQLite_tester.py', python_tester_file='ut_Python_tester.py'):
+def update_tester_script(selected_query_id, query_logs_file='query_logs.json', sqlite_tester_file='ut_SQLite_tester.py', python_tester_file='ut_Python_tester.py'):
     query_logs = load_query_logs(query_logs_file)
 
     # Display available queryIDs and prompt user to select one
@@ -73,4 +73,5 @@ def update_tester_script(query_logs_file='query_logs.json', sqlite_tester_file='
 
 # Run the update process
 if __name__ == "__main__":
-    update_tester_script()
+    selected_query_id = input("Enter the queryID you want to include in the tester script: ")
+    update_tester_script(selected_query_id)
