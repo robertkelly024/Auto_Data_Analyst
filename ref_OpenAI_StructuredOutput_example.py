@@ -25,6 +25,6 @@ completion = client.beta.chat.completions.parse(
 event = completion.choices[0].message.parsed
 print(event)  #prints entire openai exchange
 
-#print single attribute, like a code output
-class_attribute = event.some_attribute1
-print(event.class_attribute)
+#isolate or print single attribute, like a code output
+class_attribute = event.class_attribute1
+print(event.class_attribute1)
