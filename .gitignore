@@ -7,3 +7,4 @@ ScriptsForLLM.txt
 SQLite.db
 /rkdatasets
 /__pycache__
+demo*
