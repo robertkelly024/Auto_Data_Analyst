@@ -1,0 +1,18 @@
+{
+    "100001": {
+        "queryID": "100001",
+        "timestamp": "2024-08-20T16:10:09.953475",
+        "user_msg": "I need a list of positions and new columns for average salary if they were hired before 2023 vs after 2023",
+        "Context": "You want to analyze the average salaries of employees based on their hiring date, specifically comparing those hired before 2023 to those hired in or after 2023, with the results grouped by position.",
+        "Code_Type": "SQLite",
+        "code": "SELECT Position,\n       AVG(CASE WHEN DateofHire < '2023-01-01' THEN Salary END) AS Avg_Salary_Before_2023,\n       AVG(CASE WHEN DateofHire >= '2023-01-01' THEN Salary END) AS Avg_Salary_After_2023\nFROM HRDataset_v14\nGROUP BY Position;"
+    },
+    "100002": {
+        "queryID": "100002",
+        "timestamp": "2024-08-20T16:11:23.208261",
+        "user_msg": "I need a linear regression that looks at how number of years played in excess of 4 years explains fantasy points for running backs",
+        "Context": "We will perform a regression analysis using Python's pandas and statsmodels packages. The analysis will focus only on running backs (RB) who have played more than 4 years. We'll first filter the dataset for RBs with more than 4 years of play and then run a regression with the dependent variable as fantasy points and the independent variable as the number of years played beyond 4 (calculated as 'years_played - 4').",
+        "Code_Type": "Python",
+        "code": "import sqlite3\nimport pandas as pd\nimport statsmodels.api as sm\n\n# Connect to SQLite database\nconn = sqlite3.connect('SQLite.db')\n\n# Query to fetch necessary data for regression\nquery = '''\nSELECT years_played, fantasy_points\nFROM offense_weekly_data\nWHERE position = 'RB' AND years_played > 4\n'''\n\n# Load queried data into a DataFrame\ndata = pd.read_sql_query(query, conn)\n\n# Close the connection\nconn.close()\n\n# Create a new column for 'years_played_excess_of_4'\ndata['years_played_excess_of_4'] = data['years_played'] - 4\n\n# Prepare the independent (X) and dependent (Y) variables\nX = data['years_played_excess_of_4']\nY = data['fantasy_points']\n\n# Add a constant to the independent variable\nX = sm.add_constant(X)\n\n# Perform linear regression\nmodel = sm.OLS(Y, X).fit()\n\n# Print the regression result summary\nprint(model.summary())\n\n# Note: Ensure pandas and statsmodels packages are installed before running this code."
+    }
+}

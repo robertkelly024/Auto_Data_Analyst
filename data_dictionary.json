@@ -1,0 +1,552 @@
+{
+    "HRDataset_v14": {
+        "stats": {
+            "count": 311,
+            "data_last_loaded": "2024-08-20T16:06:13.734463"
+        },
+        "columns": {
+            "Employee_Name": {
+                "picklist": [],
+                "unique_values_YN": "Yes",
+                "data_type": "string",
+                "definition": "Employee Name",
+                "ActiveColumnYN": "Yes"
+            },
+            "EmpID": {
+                "picklist": [],
+                "unique_values_YN": "Yes",
+                "data_type": "integer",
+                "definition": "Empid",
+                "ActiveColumnYN": "Yes"
+            },
+            "MarriedID": {
+                "picklist": [
+                    0,
+                    1
+                ],
+                "unique_values_YN": "No",
+                "data_type": "integer",
+                "definition": "Marriedid",
+                "ActiveColumnYN": "Yes"
+            },
+            "MaritalStatusID": {
+                "picklist": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4
+                ],
+                "unique_values_YN": "No",
+                "data_type": "integer",
+                "definition": "Maritalstatusid",
+                "ActiveColumnYN": "Yes"
+            },
+            "GenderID": {
+                "picklist": [
+                    0,
+                    1
+                ],
+                "unique_values_YN": "No",
+                "data_type": "integer",
+                "definition": "Genderid",
+                "ActiveColumnYN": "Yes"
+            },
+            "EmpStatusID": {
+                "picklist": [
+                    1,
+                    5,
+                    3,
+                    4,
+                    2
+                ],
+                "unique_values_YN": "No",
+                "data_type": "integer",
+                "definition": "Empstatusid",
+                "ActiveColumnYN": "Yes"
+            },
+            "DeptID": {
+                "picklist": [
+                    5,
+                    3,
+                    6,
+                    4,
+                    1,
+                    2
+                ],
+                "unique_values_YN": "No",
+                "data_type": "integer",
+                "definition": "Deptid",
+                "ActiveColumnYN": "Yes"
+            },
+            "PerfScoreID": {
+                "picklist": [
+                    3,
+                    4,
+                    2,
+                    1
+                ],
+                "unique_values_YN": "No",
+                "data_type": "integer",
+                "definition": "Perfscoreid",
+                "ActiveColumnYN": "Yes"
+            },
+            "FromDiversityJobFairID": {
+                "picklist": [
+                    0,
+                    1
+                ],
+                "unique_values_YN": "No",
+                "data_type": "integer",
+                "definition": "Fromdiversityjobfairid",
+                "ActiveColumnYN": "Yes"
+            },
+            "Salary": {
+                "picklist": [],
+                "unique_values_YN": "No",
+                "data_type": "integer",
+                "definition": "Salary",
+                "ActiveColumnYN": "Yes"
+            },
+            "Termd": {
+                "picklist": [
+                    0,
+                    1
+                ],
+                "unique_values_YN": "No",
+                "data_type": "integer",
+                "definition": "Termd",
+                "ActiveColumnYN": "Yes"
+            },
+            "PositionID": {
+                "picklist": [
+                    19,
+                    20,
+                    3,
+                    18,
+                    24,
+                    14,
+                    9,
+                    15,
+                    28,
+                    8,
+                    4,
+                    13,
+                    22,
+                    2,
+                    1,
+                    21,
+                    23,
+                    26,
+                    27,
+                    10,
+                    12,
+                    11,
+                    5,
+                    16,
+                    25,
+                    30,
+                    29,
+                    7,
+                    17,
+                    6
+                ],
+                "unique_values_YN": "No",
+                "data_type": "integer",
+                "definition": "Positionid",
+                "ActiveColumnYN": "Yes"
+            },
+            "Position": {
+                "picklist": [
+                    "Production Technician I",
+                    "Production Technician II",
+                    "Area Sales Manager",
+                    "Production Manager",
+                    "Software Engineer",
+                    "IT Support",
+                    "Data Analyst",
+                    "Sr. Network Engineer",
+                    "Database Administrator",
+                    "Network Engineer",
+                    "BI Developer",
+                    "Senior BI Developer",
+                    "Administrative Assistant",
+                    "Sales Manager",
+                    "Accountant I",
+                    "Sr. DBA",
+                    "IT Manager - DB",
+                    "Sr. Accountant",
+                    "Director of Operations",
+                    "Shared Services Manager",
+                    "Data Analyst ",
+                    "Data Architect",
+                    "Principal Data Architect",
+                    "IT Manager - Infra",
+                    "President & CEO",
+                    "Enterprise Architect",
+                    "BI Director",
+                    "Director of Sales",
+                    "IT Director",
+                    "IT Manager - Support",
+                    "Software Engineering Manager",
+                    "CIO"
+                ],
+                "unique_values_YN": "No",
+                "data_type": "string",
+                "definition": "Position",
+                "ActiveColumnYN": "Yes"
+            },
+            "State": {
+                "picklist": [
+                    "MA",
+                    "CT",
+                    "TX",
+                    "VT",
+                    "UT",
+                    "AZ",
+                    "ND",
+                    "OR",
+                    "MT",
+                    "NV",
+                    "ID",
+                    "KY",
+                    "NC",
+                    "FL",
+                    "GA",
+                    "CO",
+                    "NY",
+                    "PA",
+                    "RI",
+                    "NH",
+                    "TN",
+                    "IN",
+                    "OH",
+                    "CA",
+                    "WA",
+                    "AL",
+                    "VA",
+                    "ME"
+                ],
+                "unique_values_YN": "No",
+                "data_type": "string",
+                "definition": "State",
+                "ActiveColumnYN": "Yes"
+            },
+            "Zip": {
+                "picklist": [],
+                "unique_values_YN": "No",
+                "data_type": "integer",
+                "definition": "Zip",
+                "ActiveColumnYN": "Yes"
+            },
+            "DOB": {
+                "picklist": [],
+                "unique_values_YN": "No",
+                "data_type": "string",
+                "definition": "Dob",
+                "ActiveColumnYN": "Yes"
+            },
+            "Sex": {
+                "picklist": [
+                    "F",
+                    "M "
+                ],
+                "unique_values_YN": "No",
+                "data_type": "string",
+                "definition": "Sex",
+                "ActiveColumnYN": "Yes"
+            },
+            "MaritalDesc": {
+                "picklist": [
+                    "Single",
+                    "Married",
+                    "Divorced",
+                    "Separated",
+                    "Widowed"
+                ],
+                "unique_values_YN": "No",
+                "data_type": "string",
+                "definition": "Maritaldesc",
+                "ActiveColumnYN": "Yes"
+            },
+            "CitizenDesc": {
+                "picklist": [
+                    "US Citizen",
+                    "Eligible NonCitizen",
+                    "Non-Citizen"
+                ],
+                "unique_values_YN": "No",
+                "data_type": "string",
+                "definition": "Citizendesc",
+                "ActiveColumnYN": "Yes"
+            },
+            "HispanicLatino": {
+                "picklist": [
+                    "No",
+                    "Yes",
+                    "no",
+                    "yes"
+                ],
+                "unique_values_YN": "No",
+                "data_type": "string",
+                "definition": "Hispaniclatino",
+                "ActiveColumnYN": "Yes"
+            },
+            "RaceDesc": {
+                "picklist": [
+                    "White",
+                    "Black or African American",
+                    "Asian",
+                    "Two or more races",
+                    "American Indian or Alaska Native",
+                    "Hispanic"
+                ],
+                "unique_values_YN": "No",
+                "data_type": "string",
+                "definition": "Racedesc",
+                "ActiveColumnYN": "Yes"
+            },
+            "DateofHire": {
+                "picklist": [],
+                "unique_values_YN": "No",
+                "data_type": "string",
+                "definition": "Dateofhire",
+                "ActiveColumnYN": "Yes"
+            },
+            "DateofTermination": {
+                "picklist": [],
+                "unique_values_YN": "No",
+                "data_type": "string",
+                "definition": "Dateoftermination",
+                "ActiveColumnYN": "Yes"
+            },
+            "TermReason": {
+                "picklist": [
+                    "N/A-StillEmployed",
+                    "Another position",
+                    "unhappy",
+                    "more money",
+                    "career change",
+                    "hours",
+                    "attendance",
+                    "return to school",
+                    "relocation out of area",
+                    "no-call, no-show",
+                    "military",
+                    "retiring",
+                    "performance",
+                    "maternity leave - did not return",
+                    "medical issues",
+                    "Learned that he is a gangster",
+                    "Fatal attraction",
+                    "gross misconduct"
+                ],
+                "unique_values_YN": "No",
+                "data_type": "string",
+                "definition": "Termreason",
+                "ActiveColumnYN": "Yes"
+            },
+            "EmploymentStatus": {
+                "picklist": [
+                    "Active",
+                    "Voluntarily Terminated",
+                    "Terminated for Cause"
+                ],
+                "unique_values_YN": "No",
+                "data_type": "string",
+                "definition": "Employmentstatus",
+                "ActiveColumnYN": "Yes"
+            },
+            "Department": {
+                "picklist": [
+                    "Production       ",
+                    "IT/IS",
+                    "Sales",
+                    "Software Engineering",
+                    "Admin Offices",
+                    "Executive Office"
+                ],
+                "unique_values_YN": "No",
+                "data_type": "string",
+                "definition": "Department",
+                "ActiveColumnYN": "Yes"
+            },
+            "ManagerName": {
+                "picklist": [
+                    "Michael Albert",
+                    "Kissy Sullivan",
+                    "Elijiah Gray",
+                    "Kelley Spirea",
+                    "Brannon Miller",
+                    "Ketsia Liebig",
+                    "David Stanley",
+                    "Amy Dunn",
+                    "Webster Butler",
+                    "Janet King",
+                    "Simon Roup",
+                    "Peter Monroe",
+                    "John Smith",
+                    "Lynn Daneault",
+                    "Alex Sweetwater",
+                    "Brian Champaigne",
+                    "Brandon R. LeBlanc",
+                    "Jennifer Zamora",
+                    "Eric Dougall",
+                    "Debra Houlihan",
+                    "Board of Directors"
+                ],
+                "unique_values_YN": "No",
+                "data_type": "string",
+                "definition": "Managername",
+                "ActiveColumnYN": "Yes"
+            },
+            "ManagerID": {
+                "picklist": [
+                    18.0,
+                    20.0,
+                    16.0,
+                    12.0,
+                    19.0,
+                    14.0,
+                    22.0,
+                    11.0,
+                    2.0,
+                    4.0,
+                    7.0,
+                    17.0,
+                    39.0,
+                    21.0,
+                    10.0,
+                    13.0,
+                    5.0,
+                    1.0,
+                    6.0,
+                    15.0,
+                    9.0,
+                    3.0,
+                    30.0
+                ],
+                "unique_values_YN": "No",
+                "data_type": "floating",
+                "definition": "Managerid",
+                "ActiveColumnYN": "Yes"
+            },
+            "RecruitmentSource": {
+                "picklist": [
+                    "Indeed",
+                    "LinkedIn",
+                    "Google Search",
+                    "Employee Referral",
+                    "Diversity Job Fair",
+                    "CareerBuilder",
+                    "Website",
+                    "Other",
+                    "On-line Web application"
+                ],
+                "unique_values_YN": "No",
+                "data_type": "string",
+                "definition": "Recruitmentsource",
+                "ActiveColumnYN": "Yes"
+            },
+            "PerformanceScore": {
+                "picklist": [
+                    "Fully Meets",
+                    "Exceeds",
+                    "Needs Improvement",
+                    "PIP"
+                ],
+                "unique_values_YN": "No",
+                "data_type": "string",
+                "definition": "Performancescore",
+                "ActiveColumnYN": "Yes"
+            },
+            "EngagementSurvey": {
+                "picklist": [],
+                "unique_values_YN": "No",
+                "data_type": "floating",
+                "definition": "Engagementsurvey",
+                "ActiveColumnYN": "Yes"
+            },
+            "EmpSatisfaction": {
+                "picklist": [
+                    3,
+                    5,
+                    4,
+                    2,
+                    1
+                ],
+                "unique_values_YN": "No",
+                "data_type": "integer",
+                "definition": "Empsatisfaction",
+                "ActiveColumnYN": "Yes"
+            },
+            "SpecialProjectsCount": {
+                "picklist": [
+                    0,
+                    6,
+                    5,
+                    7,
+                    4,
+                    3,
+                    8,
+                    2,
+                    1
+                ],
+                "unique_values_YN": "No",
+                "data_type": "integer",
+                "definition": "Specialprojectscount",
+                "ActiveColumnYN": "Yes"
+            },
+            "LastPerformanceReview_Date": {
+                "picklist": [],
+                "unique_values_YN": "No",
+                "data_type": "string",
+                "definition": "Lastperformancereview Date",
+                "ActiveColumnYN": "Yes"
+            },
+            "DaysLateLast30": {
+                "picklist": [
+                    0,
+                    4,
+                    2,
+                    5,
+                    3,
+                    6,
+                    1
+                ],
+                "unique_values_YN": "No",
+                "data_type": "integer",
+                "definition": "Dayslatelast30",
+                "ActiveColumnYN": "Yes"
+            },
+            "Absences": {
+                "picklist": [
+                    4,
+                    16,
+                    7,
+                    2,
+                    15,
+                    13,
+                    14,
+                    3,
+                    19,
+                    6,
+                    11,
+                    17,
+                    1,
+                    20,
+                    9,
+                    5,
+                    8,
+                    10,
+                    12,
+                    18
+                ],
+                "unique_values_YN": "No",
+                "data_type": "integer",
+                "definition": "Absences",
+                "ActiveColumnYN": "Yes"
+            }
+        }
+    }
+}

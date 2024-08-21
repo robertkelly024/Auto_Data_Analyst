@@ -6,9 +6,11 @@ conn = sqlite3.connect('SQLite.db')
 cursor = conn.cursor()
 
 sqlite_code = """
-SELECT DISTINCT name
-FROM offense_weekly_data
-WHERE position = 'RB' AND years_played > 5;
+SELECT Position,
+       AVG(CASE WHEN DateofHire < '2023-01-01' THEN Salary END) AS Avg_Salary_Before_2023,
+       AVG(CASE WHEN DateofHire >= '2023-01-01' THEN Salary END) AS Avg_Salary_After_2023
+FROM HRDataset_v14
+GROUP BY Position;
 """
 
 # Execute sqlite code and generate results file
