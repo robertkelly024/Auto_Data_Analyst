@@ -8,11 +8,12 @@ OpenAI.api_key = os.getenv('OPENAI_API_KEY')
 
 client = OpenAI()
 
+#Define object
 class some_class(BaseModel):
     class_attribute1: str
     class_attribute2: str
 
-# Step 3: Use the dynamic model in the OpenAI completion request
+# Use the dynamic model in the OpenAI completion request
 completion = client.beta.chat.completions.parse(
     model="gpt-4o-2024-08-06",
     messages=[
@@ -22,9 +23,7 @@ completion = client.beta.chat.completions.parse(
     response_format=some_class,
 )
 
+#Print attribute from structured response
 event = completion.choices[0].message.parsed
-print(event)  #prints entire openai exchange
-
-#isolate or print single attribute, like a code output
 class_attribute = event.class_attribute1
 print(event.class_attribute1)
