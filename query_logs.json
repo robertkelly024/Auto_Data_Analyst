@@ -14,5 +14,53 @@
         "Context": "We will perform a regression analysis using Python's pandas and statsmodels packages. The analysis will focus only on running backs (RB) who have played more than 4 years. We'll first filter the dataset for RBs with more than 4 years of play and then run a regression with the dependent variable as fantasy points and the independent variable as the number of years played beyond 4 (calculated as 'years_played - 4').",
         "Code_Type": "Python",
         "code": "import sqlite3\nimport pandas as pd\nimport statsmodels.api as sm\n\n# Connect to SQLite database\nconn = sqlite3.connect('SQLite.db')\n\n# Query to fetch necessary data for regression\nquery = '''\nSELECT years_played, fantasy_points\nFROM offense_weekly_data\nWHERE position = 'RB' AND years_played > 4\n'''\n\n# Load queried data into a DataFrame\ndata = pd.read_sql_query(query, conn)\n\n# Close the connection\nconn.close()\n\n# Create a new column for 'years_played_excess_of_4'\ndata['years_played_excess_of_4'] = data['years_played'] - 4\n\n# Prepare the independent (X) and dependent (Y) variables\nX = data['years_played_excess_of_4']\nY = data['fantasy_points']\n\n# Add a constant to the independent variable\nX = sm.add_constant(X)\n\n# Perform linear regression\nmodel = sm.OLS(Y, X).fit()\n\n# Print the regression result summary\nprint(model.summary())\n\n# Note: Ensure pandas and statsmodels packages are installed before running this code."
+    },
+    "100003": {
+        "queryID": "100003",
+        "timestamp": "2024-09-03T09:01:21.422318",
+        "user_msg": "I need to know which quarterbacks tend to concentrate targets on a single receiver more than their other receivers",
+        "Context": "To determine which quarterbacks concentrate targets on a single receiver more than their other receivers, we'll calculate the target share for each receiver per quarterback per season. The target share is the percentage of total team targets that were aimed at a specific player. Players with the highest target share for each quarterback are likely those who receive the most concentrated attention from the quarterback.",
+        "Code_Type": "SQLite",
+        "code": "WITH receiver_target_share AS (\n    SELECT \n        o.season, \n        o.name AS receiver_name,\n        qb.name AS quarterback_name,\n        o.team,\n        SUM(o.targets) AS total_targets,\n        SUM(o.targets) / SUM(SUM(o.targets)) OVER (PARTITION BY o.season, qb.name) AS target_share\n    FROM offense_weekly_data o\n    JOIN (\n        SELECT DISTINCT o1.name, o1.team, o1.season\n        FROM offense_weekly_data o1\n        WHERE o1.position = 'QB'\n    ) qb ON o.team = qb.team AND o.season = qb.season\n    WHERE o.position IN ('WR', 'TE', 'RB')\n    GROUP BY o.season, o.name, qb.name, o.team\n)\nSELECT \n    season, \n    quarterback_name,\n    receiver_name,\n    MAX(target_share) AS max_target_share\nFROM receiver_target_share\nGROUP BY season, quarterback_name\nORDER BY max_target_share DESC;"
+    },
+    "100004": {
+        "queryID": "100004",
+        "timestamp": "2024-09-03T09:04:14.698228",
+        "user_msg": "I need to know which quarterbacks tend to concentrate targets on a single receiver more than their other receivers. Make sure to type any decimal fields correctly",
+        "Context": "To find quarterbacks who concentrate targets on a single receiver more than their other receivers within a season, we'll use the 'offense_weekly_data' table. We'll calculate a concentration metric for quarterbacks by comparing the target share of each receiver for a given quarterback. Only data concerning quarterbacks (position 'QB') and players with targets will be considered. A high concentration score indicates that a quarterback significantly favors one target compared to others.",
+        "Code_Type": "SQLite",
+        "code": "-- Find quarterbacks with high target concentration on a single receiver\nSELECT QB.name AS quarterback_name, QB.team AS quarterback_team, WR.name AS receiver_name, \n    SUM(WR.targets) AS total_targets, AVG(WR.target_share) AS average_target_share\nFROM offense_weekly_data QB\nJOIN offense_weekly_data WR ON QB.name = WR.name AND QB.team = WR.team AND QB.season = WR.season\nWHERE QB.position = 'QB' AND WR.position != 'QB' AND WR.targets > 0\nGROUP BY QB.name, WR.name\nHAVING AVG(WR.target_share) = (\n  SELECT MAX(subWR.average_target_share)\n  FROM (\n      SELECT AVG(subWR.target_share) AS average_target_share\n      FROM offense_weekly_data subWR\n      WHERE subWR.name = WR.name AND subWR.team = WR.team AND subWR.season = WR.season\n      GROUP BY subWR.name, subWR.team\n  ) AS subWR\n)\nORDER BY QB.name;"
+    },
+    "100005": {
+        "queryID": "100005",
+        "timestamp": "2024-09-03T09:07:40.114650",
+        "user_msg": "I need to know which quarterbacks tend to concentrate targets on a single receiver more than their other receivers. I think you can select QBs that have over 100 pass attempts in a single year, and then figure out who their receivers were by joining on team and year. For target share, when you calculate, make sure to use a data type that accepts decimals.",
+        "Context": "To identify quarterbacks who concentrate targets on a single receiver, we'll perform the following steps: 1) Filter quarterbacks with over 100 pass attempts in a single year. 2) Join the offense_weekly_data on the QB's team and season to get their receivers. 3) Calculate the target share for each receiver using decimal data type for accuracy. This will highlight receivers with the highest target share for each QB.",
+        "Code_Type": "SQLite",
+        "code": "WITH QB_Attempts AS (\n    SELECT\n        name AS qb_name,\n        team,\n        season,\n        SUM(attempts) AS total_attempts\n    FROM offense_weekly_data\n    WHERE position = 'QB'\n    GROUP BY name, team, season\n    HAVING SUM(attempts) > 100\n),\nReceiver_Target_Share AS (\n    SELECT\n        q.qb_name,\n        r.team,\n        r.season,\n        r.name AS receiver_name,\n        SUM(r.targets) * 1.0 / NULLIF(SUM(q.total_attempts), 0) AS target_share\n    FROM QB_Attempts q\n    JOIN offense_weekly_data r ON q.team = r.team AND q.season = r.season\n    WHERE r.position IN ('WR', 'TE', 'RB', 'HB')\n    GROUP BY q.qb_name, r.name, r.team, r.season\n)\nSELECT \n    qb_name,\n    receiver_name,\n    season,\n    target_share\nFROM Receiver_Target_Share\nWHERE target_share = (\n    SELECT MAX(target_share)\n    FROM Receiver_Target_Share rts\n    WHERE rts.qb_name = Receiver_Target_Share.qb_name\n      AND rts.season = Receiver_Target_Share.season\n)\nORDER BY qb_name, season, target_share DESC;"
+    },
+    "100006": {
+        "queryID": "100006",
+        "timestamp": "2024-09-03T09:12:13.760045",
+        "user_msg": "which QBs tend to throw a lot of passes to tight ends?",
+        "Context": "In order to determine which quarterbacks (QBs) tend to throw a lot of passes to tight ends, we'll analyze the 'offense_weekly_data' table. We will filter for the position of 'TE' and calculate the average number of targets from each quarterback, ranking them by the most targets to tight ends.",
+        "Code_Type": "SQLite",
+        "code": "SELECT o.name AS QB_Name, \n       o.team, \n       AVG(targets) AS Avg_Targets_to_TE\nFROM offense_weekly_data o\nWHERE position = 'TE'\nGROUP BY o.name, o.team\nORDER BY Avg_Targets_to_TE DESC\nLIMIT 10;"
+    },
+    "100007": {
+        "queryID": "100007",
+        "timestamp": "2024-10-29T21:50:39.294559",
+        "user_msg": "let's write a sqlite query that shows all female non-white employees. return all fields",
+        "Context": "The provided database schema does not include any information about employees or demographic details such as gender or ethnicity. Thus, I cannot directly write a query to pull data about female non-white employees. You might need to consult a different dataset or adjust your requirements based on the available data. If you have access to the relevant dataset schema, providing that could allow for a more targeted query.",
+        "Code_Type": "SQLite",
+        "code": ""
+    },
+    "100008": {
+        "queryID": "100008",
+        "timestamp": "2024-10-29T21:51:17.863326",
+        "user_msg": "make a list of dallas cowboys runningbacks",
+        "Context": "Retrieve a list of running backs who played for the Dallas Cowboys from the database 'SQLite.db'.",
+        "Code_Type": "SQLite",
+        "code": "SELECT DISTINCT name FROM adp_merged_7_17 \nWHERE team = 'DAL' \n  AND position = 'RB';"
     }
 }
