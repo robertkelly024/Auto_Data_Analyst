@@ -17,8 +17,8 @@ class some_class(BaseModel):
 completion = client.beta.chat.completions.parse(
     model="gpt-4o-2024-08-06",
     messages=[
-        {"role": "system", "content": "SYSTEM MESSAGE GOES HERE"},
-        {"role": "user", "content": "USER MESSAGE GOES HERE"},
+        {"role": "system", "content": "You are a helpful Assistant"},
+        {"role": "user", "content": "Class 1 is temperature. Class 2 is precipitation. Tell me the average weather in Phoenix in January."},
     ],
     response_format=some_class,
 )
@@ -26,4 +26,5 @@ completion = client.beta.chat.completions.parse(
 #Print attribute from structured response
 event = completion.choices[0].message.parsed
 class_attribute = event.class_attribute1
+print(event)
 print(event.class_attribute1)
